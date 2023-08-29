@@ -1,21 +1,30 @@
 
 import './App.css'
 import Header from './components/Header'
-import {TaskList} from './components/TaskList'
+import { useState } from 'react'
 
-const ListaPendientes= [{name: "buy a new gaming laptop", estado: "completado"},
-{name: "complete a previous task", estado: "completado"},
-{name: "create a video for YouTube", estado: "pendiente"},
-{name: "create a new portafolio site", estado: "completado"}]
 
 function App() {
+const [listTasks, setListTasks] = useState([]);
+const [task,setTask]=useState("")
+
+function handleAddTask() {
+  setListTasks([...listTasks, task])
+}
 
   return (
   <div>
     <Header/>
-    <TaskList lista={ListaPendientes}/>
+    <input value={task} onChange={(e)=>setTask(e.target.value)}/>
+    <button onClick={handleAddTask}>Add Task</button>
+    <ul>
+      {listTasks.map((element)=>(
+        
+        <li key={element}>{element}</li>
+      ))}
+
+    </ul>
   </div>
-  )
-}
+  );}
 
 export default App

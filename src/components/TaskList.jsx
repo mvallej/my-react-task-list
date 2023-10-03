@@ -22,6 +22,7 @@ export const TaskList = () => {
       setListTasks(storedListTasks);
     }
   }, []);
+// falta local storage checkbox
   return (
     <div>
       <input value={task} onChange={(e) => setTask(e.target.value)} />

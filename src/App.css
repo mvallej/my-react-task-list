@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+span.error {
+  display: block;
+  color: red;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.tareas{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid green;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}

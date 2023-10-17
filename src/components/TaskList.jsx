@@ -1,38 +1,75 @@
 import { Task } from "./Task";
 import { useEffect, useState } from "react";
+import { useTask } from "./useTask";
+
 export const TaskList = () => {
-  const [listTasks, setListTasks] = useState([]);
-  const [task, setTask] = useState("");
-  const [descTask, setDescTask] = useState("");
-  function handleAddTask() {
-    let newTask = {
-      name: task,
-      desc: descTask,
-      state: false,
-    };
-    let newListTask = [...listTasks];
-    newListTask = [...newListTask, newTask];
-    setListTasks(newListTask);
-    localStorage.setItem("listTasks", JSON.stringify(newListTask));
-  }
-  useEffect(() => {
-    const localStorageData = localStorage.getItem("listTasks");
-    if (localStorageData) {
-      const storedListTasks = JSON.parse(localStorageData);
-      setListTasks(storedListTasks);
-    }
-  }, []);
+ const {listTasks, handleAddTask, handleDeleteButton} = useTask();
 // falta local storage checkbox
+const [task, setTask] = useState("");
+const [descTask, setDescTask] = useState("");
+const [formValidation, setFormValidation] = useState({
+  task: undefined
+});
+
+const handleTaskChange = (event) =>{
+  const value= event.target.value;
+event.preventDefault()
+   if (value.length === 0) {
+    setFormValidation({
+    ...formValidation,
+    task:"task is required"})}
+
+    else if (value.length < 3) {
+    setFormValidation({
+    ...formValidation,
+    task:"task is too short"})
+    }
+    else {
+      setFormValidation({
+        ...formValidation,
+        task:""})
+    }
+    setTask(value);
+  };
+
+
+const handleButton= () => {
+  console.log("texto")
+handleAddTask(task, descTask)
+}
+console.log(listTasks)
+
+const isFormValid = Object.keys(formValidation).every(
+  (key) => formValidation[key] === ""
+);
+
   return (
     <div>
-      <input value={task} onChange={(e) => setTask(e.target.value)} />
+      <form>
+        <div>
+          <label>
+            Task
+      <input value={task} onChange={handleTaskChange} />
+      </label>
+      {formValidation.task && (
+          <span className="error" role="alert">
+            {formValidation.task}
+          </span>)}
+      </div>
+      <div>
+      <label>
+        Task Description
       <input value={descTask} onChange={(e) => setDescTask(e.target.value)} />
-      <button onClick={handleAddTask}>Add Task</button>
+      </label>
+      </div>
+      <button disabled={!isFormValid} onClick={()=>handleButton()}>Add Task</button>
       <ul>
         {listTasks.map((element, index) => (
-          <Task key={index} item={element} />
-        ))}
+          <Task handleDeleteTask= {handleDeleteButton} key={index} item={element}/>
+        )) 
+        }
       </ul>
+      </form>
     </div>
   );
 };

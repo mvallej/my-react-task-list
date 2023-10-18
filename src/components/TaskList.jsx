@@ -45,7 +45,7 @@ const isFormValid = Object.keys(formValidation).every(
 
   return (
     <div>
-      <form>
+      <div>
         <div>
           <label>
             Task
@@ -69,7 +69,7 @@ const isFormValid = Object.keys(formValidation).every(
         )) 
         }
       </ul>
-      </form>
+      </div>
     </div>
   );
 };

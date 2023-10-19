@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTask } from "./useTask";
+import { EditTask } from "./EditTask";
 export const Task = (props) => {
   const { item, handleDeleteTask } = props;
   const [check, setCheck] = useState(item.state);
@@ -23,7 +24,7 @@ export const Task = (props) => {
         <button onClick={()=>handleDeleteTask(item.id)}>Delete Task</button>
         <button onClick={()=> setShowImput(true)}>Edit Task</button>
       </li>
-        {showImput && <h1>hola mundo</h1>}
+        {showImput && <EditTask/>}
     </div>
   );
 };

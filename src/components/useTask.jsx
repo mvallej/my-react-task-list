@@ -33,20 +33,13 @@ export function useTask (){
     }
 
 
-    // function handleChangeTodo(nextTodo) {
-    //   const todo = todos.find(t =>
-    //     t.id === nextTodo.id
-    //   );
-    //   todo.title = nextTodo.title;
-    //   todo.done = nextTodo.done;
-    // }
-    return { listTasks, handleAddTask, handleDeleteButton }
+    function handleChangeTodo(id, name, desc) {
+      const todo = listTasks.find(t =>
+        t.id === id
+      );
+      todo.name = id.name;
+      todo.desc = id.desc;
+    }
+
+    return { listTasks, handleAddTask, handleDeleteButton, handleChangeTodo }
 }
-
-
-// function hadleDelete(taskId) {
-//   console.log(taskId);
-//   const listaEliminada = list.filter((e)=>{
-//     return e.id !== taskId})
-//  localStorage.setItem("list", JSON.stringify(listaEliminada))
-//  setList(listaEliminada)

@@ -1,9 +1,10 @@
 import { Task } from "./Task";
 import { useEffect, useState } from "react";
 import { useTask } from "./useTask";
+import { Center, Button } from "@chakra-ui/react";
 
 export const TaskList = () => {
- const {listTasks, handleAddTask, handleDeleteButton} = useTask();
+ const {listTasks, handleAddTask, handleDeleteButton, handleChangeTodo} = useTask();
 // falta local storage checkbox
 const [task, setTask] = useState("");
 const [descTask, setDescTask] = useState("");
@@ -45,6 +46,8 @@ const isFormValid = Object.keys(formValidation).every(
 
   return (
     <div>
+      <Center >
+ 
       <div>
         <div>
           <label>
@@ -61,15 +64,21 @@ const isFormValid = Object.keys(formValidation).every(
         Task Description
       <input value={descTask} onChange={(e) => setDescTask(e.target.value)} />
       </label>
+      <Center >
+      <Button colorScheme='blue' disabled={!isFormValid} onClick={()=>handleButton()}>Add Task</Button>
+</Center>
       </div>
-      <button disabled={!isFormValid} onClick={()=>handleButton()}>Add Task</button>
+      
+      
       <ul>
         {listTasks.map((element, index) => (
-          <Task handleDeleteTask= {handleDeleteButton} key={index} item={element}/>
+          <Task handleDeleteTask= {handleDeleteButton} handleEditTask= {handleChangeTodo}key={index} item={element}/>
         )) 
         }
       </ul>
       </div>
+
+</Center>
     </div>
   );
 };
